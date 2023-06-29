@@ -1,4 +1,5 @@
-﻿using Module._25;
+﻿using Microsoft.EntityFrameworkCore;
+using Module._25;
 
 class Program
 {
@@ -8,9 +9,11 @@ class Program
         {
             var userRepository = new UserRepository(context);
             var bookRepository = new BookRepository(context);
+            
+            
 
             // Использование репозиториев
-            
+
             var user = userRepository.GetById(1);
             var allUsers = userRepository.GetAll();
 
@@ -26,8 +29,11 @@ class Program
 
             bookRepository.UpdateYear(book.BookId, 2023);
 
-            //  Сохранение изменений
-            context.SaveChanges();
+            //удаление БД и миграция с включением новых свойств
+            context.Database.EnsureDeleted();
+            context.Database.Migrate();
+
+
         }
 
         Console.WriteLine("Данные успешно сохранены в базе данных.");

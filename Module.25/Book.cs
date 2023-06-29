@@ -11,5 +11,9 @@ namespace Module._25
         public int BookId { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }
+        public User User { get; set; }  // Книга на руки
+        // Автор и жанр
+        public string Author { get; set; }
+        public string Genre { get; set; }
     }
 }

@@ -11,6 +11,9 @@ namespace Module._25
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public List<Book> Books { get; set; }// свойство книги, выданной на руки
     }
+
+
 
 }

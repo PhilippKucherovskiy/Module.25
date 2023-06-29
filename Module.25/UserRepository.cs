@@ -46,5 +46,19 @@ namespace Module._25
                 _context.SaveChanges();
             }
         }
+
+        //Связь между пользователем и книгой
+
+        public void BorrowBook(int userId, int bookId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var book = _context.Books.FirstOrDefault(b => b.BookId == bookId);
+
+            if (user != null && book != null)
+            {
+                book.User = user;
+                _context.SaveChanges();
+            }
+        }
     }
 }
