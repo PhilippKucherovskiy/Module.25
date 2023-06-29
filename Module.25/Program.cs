@@ -6,15 +6,25 @@ class Program
     {
         using (var context = new LibraryContext())
         {
-            // Создание пользователей
-            var user1 = new User { Name = "Иван", Email = "ivan@gmail.com" };
-            var user2 = new User { Name = "Анна", Email = "anna@example.com" };
-            context.Users.AddRange(user1, user2);
+            var userRepository = new UserRepository(context);
+            var bookRepository = new BookRepository(context);
 
-            // Создание книг
-            var book1 = new Book { Title = "Война и мир", Year = 1869 };
-            var book2 = new Book { Title = "Преступление и наказание", Year = 1866 };
-            context.Books.AddRange(book1, book2);
+            // Использование репозиториев
+            
+            var user = userRepository.GetById(1);
+            var allUsers = userRepository.GetAll();
+
+            var book = bookRepository.GetById(1);
+            var allBooks = bookRepository.GetAll();
+
+            var newUser = new User { Name = "Новый пользователь", Email = "newuser@example.com" };
+            userRepository.Add(newUser);
+
+            userRepository.Delete(user);
+
+            userRepository.UpdateName(newUser.UserId, "Измененное имя");
+
+            bookRepository.UpdateYear(book.BookId, 2023);
 
             //  Сохранение изменений
             context.SaveChanges();
