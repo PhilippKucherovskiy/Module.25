@@ -61,5 +61,63 @@ namespace Module._25
             }
         }
 
+        //Список книг по жанру между годами
+        public List<Book> GetBooksByGenreAndYearRange(string genre, int startYear, int endYear)
+        {
+            return _context.Books
+                .Where(b => b.Genre == genre && b.Year >= startYear && b.Year <= endYear)
+                .ToList();
+        }
+
+        //Количество книг автора в библиотеке
+        public int GetBookCountByAuthor(string author)
+        {
+            return _context.Books.Count(b => b.Author == author);
+        }
+
+        //Количество книг жанра в библиотеке
+        public int GetBookCountByGenre(string genre)
+        {
+            return _context.Books.Count(b => b.Genre == genre);
+        }
+
+        //Булевый флаг наличие автора с названием
+        public bool HasBookByAuthorAndTitle(string author, string title)
+        {
+            return _context.Books.Any(b => b.Author == author && b.Title == title);
+        }
+
+        //Проверить, взята ли определенная книга определенным пользователем
+        public bool IsBookBorrowedByUser(int bookId, int userId)
+        {
+            return _context.Books.Any(b => b.BookId == bookId && b.User != null && b.User.UserId == userId);
+        }
+
+        //Получить последнюю вышедшую книгу
+        public Book GetLatestBook()
+        {
+            return _context.Books.OrderByDescending(b => b.Year).FirstOrDefault();
+        }
+
+        //Список книг отсортированный по названию
+        public List<Book> GetAllBooksSortedByTitle()
+        {
+            return _context.Books.OrderBy(b => b.Title).ToList();
+        }
+
+        //Список книг в порядке убывания года выхода
+        public List<Book> GetAllBooksSortedByYearDescending()
+        {
+            return _context.Books.OrderByDescending(b => b.Year).ToList();
+        }
+
+
+
+
+
+
+
+
+
     }
 }

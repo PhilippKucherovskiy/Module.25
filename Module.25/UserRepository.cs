@@ -60,5 +60,13 @@ namespace Module._25
                 _context.SaveChanges();
             }
         }
+        
+
+        //Кол-во книг у пользователя
+        public int GetBorrowedBookCountByUser(int userId)
+        {
+            return _context.Books.Count(b => b.User != null && b.User.UserId == userId);
+        }
+
     }
 }
